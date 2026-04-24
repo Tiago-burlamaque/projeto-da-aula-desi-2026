@@ -1,0 +1,6 @@
+REQUISITOS FUNCIONAIS:
+
+- Agendar serviço de faxina;
+- Gerenciar horários e a disponibilidade dos funcionários;
+- Exibir usuario Logado;
+- Meio para o usuário fazer logout redirecionado a tela de login;
