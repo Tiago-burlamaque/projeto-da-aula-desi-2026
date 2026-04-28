@@ -28,7 +28,7 @@ export default function Login() {
 
             toast.success('Login realizado');
 
-            navigate('/home')
+            navigate('/privateRoute/home')
         } catch (error) {
             console.log(error.response.data);
             toast.error('Erro no login');

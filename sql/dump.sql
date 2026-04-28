@@ -1,5 +1,7 @@
 CREATE SCHEMA `gestao_faxina` ;
 
+USE `gestao_faxina`
+
 CREATE TABLE `gestao_faxina`.`cliente` (
   `idcliente` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(225) NULL,
