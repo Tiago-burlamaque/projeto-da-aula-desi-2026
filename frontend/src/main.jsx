@@ -12,6 +12,7 @@ import Home from './pages/Home'
 import { AuthProvider } from './context/AuthContext'
 import NotFound from './pages/NotFound'
 import RegistrarAgendamento from './pages/RegistrarAgendamento'
+import Dashboard from './pages/GestaoAgendamento'
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
     children: [
       { path: 'home', element: <Home /> },
       { path: 'cadastrosAgendamentos', element: <RegistrarAgendamento /> },
-      { path: 'gestaoAgendamento', element: <div>Calendário</div> },
+      { path: 'gestaoAgendamento', element: <Dashboard />},
     
     ]
   }

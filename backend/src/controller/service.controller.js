@@ -14,9 +14,9 @@ export const createService = async (req, res) => {
 
         // Query corrigida - faltava o nome da tabela e VALUES estava incompleto
         const [rows] = await db.query(
-            `INSERT INTO servicos 
-             (nome, email, telefone, cidade, agendamento_servico, nome_servico, valor_servico, status, ativo) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, 1)`,
+            `INSERT INTO funcionario 
+   (nome, email, telefone, cidade, agendamento_servico, nome_servico, valor_servico, status) 
+   VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
             [nome, email, telefone, cidade, agendamento_servico, nome_servico, valor_servico, status]
         );
 
@@ -40,7 +40,7 @@ export const createService = async (req, res) => {
 
     } catch (error) {
         console.error("Erro ao criar serviço:", error);
-        
+
         // Tratamento específico para email duplicado
         if (error.code === 'ER_DUP_ENTRY') {
             return res.status(409).json({
@@ -61,59 +61,41 @@ export const createService = async (req, res) => {
 
 // Listar todos os serviços
 export const getAllServices = async (req, res) => {
-    try {
-        const [rows] = await db.query(`
-            SELECT id, nome, email, telefone, cidade, agendamento_servico, 
-                   nome_servico, valor_servico, ativo, created_at 
-            FROM servicos 
-            WHERE ativo = 1 
-            ORDER BY created_at DESC
-        `);
+  try {
+    const [rows] = await db.query(`
+      SELECT idfuncionario as id, nome, email, telefone, cidade, agendamento_servico, 
+             nome_servico, valor_servico, status  -- Removido ativo/created_at inexistentes
+      FROM funcionario 
+      ORDER BY agendamento_servico DESC
+    `);
 
-        res.json({
-            success: true,
-            count: rows.length,
-            data: rows
-        });
-
-    } catch (error) {
-        console.error("Erro ao listar serviços:", error);
-        res.status(500).json({
-            success: false,
-            message: "Erro ao listar serviços"
-        });
-    }
+    res.json({
+      success: true,
+      count: rows.length,
+      data: rows
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 };
 
 // Buscar serviço por ID
 export const getServiceById = async (req, res) => {
-    try {
-        const { id } = req.params;
-        
-        const [rows] = await db.query(
-            `SELECT * FROM servicos WHERE id = ? AND ativo = 1`,
-            [id]
-        );
+  try {
+    const { id } = req.params;
+    const [rows] = await db.query(
+      `SELECT * FROM funcionario WHERE idfuncionario = ?`, // ✅ idfuncionario
+      [id]
+    );
 
-        if (rows.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "Serviço não encontrado"
-            });
-        }
-
-        res.json({
-            success: true,
-            data: rows[0]
-        });
-
-    } catch (error) {
-        console.error("Erro ao buscar serviço:", error);
-        res.status(500).json({
-            success: false,
-            message: "Erro ao buscar serviço"
-        });
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: "Não encontrado" });
     }
+
+    res.json({ success: true, data: rows[0] });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 };
 
 // Atualizar serviço
@@ -123,7 +105,7 @@ export const updateService = async (req, res) => {
         const { nome, email, telefone, cidade, agendamento_servico, nome_servico, valor_servico } = req.body;
 
         const [result] = await db.query(
-            `UPDATE servicos 
+            `UPDATE funcionario 
              SET nome = ?, email = ?, telefone = ?, cidade = ?, 
                  agendamento_servico = ?, nome_servico = ?, valor_servico = ?
              WHERE id = ? AND ativo = 1`,
@@ -153,31 +135,19 @@ export const updateService = async (req, res) => {
 
 // Deletar serviço (soft delete)
 export const deleteService = async (req, res) => {
-    try {
-        const { id } = req.params;
+  try {
+    const { id } = req.params;
+    const [result] = await db.query(
+      `DELETE FROM funcionario WHERE idfuncionario = ?`, // ✅ DELETE real
+      [id]
+    );
 
-        const [result] = await db.query(
-            `UPDATE servicos SET ativo = 0 WHERE id = ?`,
-            [id]
-        );
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "Serviço não encontrado"
-            });
-        }
-
-        res.json({
-            success: true,
-            message: "Serviço cancelado com sucesso!"
-        });
-
-    } catch (error) {
-        console.error("Erro ao deletar serviço:", error);
-        res.status(500).json({
-            success: false,
-            message: "Erro ao cancelar serviço"
-        });
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ success: false, message: "Não encontrado" });
     }
+
+    res.json({ success: true, message: "Agendamento removido!" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 };

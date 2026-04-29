@@ -20,6 +20,7 @@ CREATE TABLE `gestao_faxina`.`funcionario` (
   `nome_servico` VARCHAR(255) NULL,
   `valor_servico` DECIMAL(10,2) NULL,
   `status` ENUM('Pendente', 'Cancelado', 'Confirmado', 'Concluído') NULL,
-  `ativo` INT VALUE 1,
+  `ativo` INT 1,
   PRIMARY KEY(`idfuncionario`)
   ) 
+  
