@@ -1,0 +1,148 @@
+# Sistema de Agendamento
+
+## Descrição do Projeto
+Sistema desenvolvido para realizar agendamentos de serviços, permitindo cadastro de usuários, login e verificação automática de conflitos de horários.
+
+---
+
+# 8 - Descritivo de Casos de Teste de Software
+
+## 8.1 Ferramentas Utilizadas
+
+| Ferramenta | Versão |
+|---|---|
+| Visual Studio Code | 1.99 |
+| React | 18 |
+| Node.js | 20 |
+| MySQL | 8.0 |
+| Google Chrome | 135 |
+| Windows | 11 |
+| Linux Ubuntu | 24.04 |
+
+---
+
+## 8.2 Ambiente de Teste
+
+Os testes foram realizados em um computador com:
+
+- Processador Intel Core i5
+- 16 GB de RAM
+- Windows 11
+- Navegador Google Chrome
+
+- Processador Amd Ryzen 3
+- 4 GB de RAM
+- Linux Ubuntu
+- Navegador google Chrome
+
+---
+
+# Casos de Teste
+
+## Caso de Teste 01 — Cadastro de Usuário
+
+### Objetivo
+Verificar se o sistema realiza corretamente o cadastro de usuários.
+
+### Pré-condição
+O usuário deve acessar a tela de cadastro.
+
+### Passos para Teste
+1. Inserir nome completo
+2. Inserir e-mail válido
+3. Inserir senha
+4. Clicar em **Cadastrar**
+
+### Resultado Esperado
+O sistema deve cadastrar o usuário e exibir uma mensagem de sucesso.
+
+### Resultado Obtido
+Cadastro realizado corretamente.
+
+### Status
+✅ Aprovado
+
+---
+
+## Caso de Teste 02 — Login no Sistema
+
+### Objetivo
+Verificar se o login funciona corretamente.
+
+### Pré-condição
+Usuário cadastrado anteriormente.
+
+### Passos para Teste
+1. Inserir e-mail
+2. Inserir senha
+3. Clicar em **Entrar**
+
+### Resultado Esperado
+O sistema deve permitir acesso à página principal.
+
+### Resultado Obtido
+Login realizado com sucesso.
+
+### Status
+✅ Aprovado
+
+---
+
+## Caso de Teste 03 — Conflito de Horário
+
+### Objetivo
+Verificar se o sistema identifica conflito de horários.
+
+### Pré-condição
+Já existir um agendamento no horário escolhido.
+
+### Passos para Teste
+1. Selecionar profissional
+2. Escolher horário já ocupado
+3. Confirmar agendamento
+
+### Resultado Esperado
+O sistema deve impedir o agendamento e exibir um alerta.
+
+### Resultado Obtido
+O sistema exibiu a mensagem corretamente.
+
+### Status
+✅ Aprovado
+
+---
+
+# 9 - Lista de Requisitos de Infraestrutura
+
+## 9.1 Banco de Dados (SGBD)
+
+| SGBD | Versão |
+|---|---|
+| MySQL | 8.0 |
+
+---
+
+## 9.2 Linguagem de Programação
+
+| Linguagem | Versão |
+|---|---|
+| JavaScript | ES6 |
+| React | 18 |
+| Node.js | 20 |
+
+---
+
+## 9.3 Sistema Operacional
+
+| Sistema Operacional | Versão |
+|---|---|
+| Windows | 11 |
+
+---
+
+# Como Executar o Projeto
+
+## Instalar Dependências
+
+```bash
+npm install

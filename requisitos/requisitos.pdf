@@ -1,0 +1,119 @@
+Requisitos Funcionais do Sistema de Agendamentos
+1. Autenticação de Usuários (Login)
+RF01 – Realizar Login
+
+O sistema deve permitir que o usuário informe credenciais de acesso (usuário e senha) para autenticação.
+
+RF02 – Validar Credenciais
+
+O sistema deve validar os dados informados comparando com os registros cadastrados no banco de dados.
+
+RF03 – Exibir Erro de Autenticação
+
+Em caso de falha no login, o sistema deve informar ao usuário o motivo da falha.
+
+RF04 – Redirecionar para Tela de Login
+
+Após falha na autenticação, o sistema deve redirecionar novamente para a tela de login.
+
+2. Interface Principal do Sistema
+RF05 – Exibir Usuário Logado
+
+O sistema deve exibir o nome do usuário autenticado na interface principal.
+
+RF06 – Realizar Logout
+
+O sistema deve permitir que o usuário encerre a sessão através da opção logout.
+
+RF07 – Redirecionar para Login Após Logout
+
+Após logout, o sistema deve redirecionar o usuário para a tela de autenticação.
+
+RF08 – Acessar Cadastro de Agendamentos
+
+O sistema deve disponibilizar acesso à interface de Cadastro de Agendamentos.
+
+RF09 – Acessar Gestão de Agendamentos
+
+O sistema deve disponibilizar acesso à interface de Gestão de Agendamentos.
+
+3. Cadastro de Agendamentos
+RF10 – Listar Agendamentos
+
+O sistema deve listar os agendamentos cadastrados em banco de dados em formato de tabela.
+
+RF11 – Carregamento Automático da Lista
+
+Ao acessar a tela de cadastro de agendamento, a lista deve ser carregada automaticamente.
+
+RF12 – Buscar Agendamentos
+
+O sistema deve permitir a busca de registros através de campo de pesquisa.
+
+RF13 – Filtrar Resultados
+
+Após confirmação da busca, o sistema deve atualizar a tabela exibindo apenas os registros correspondentes.
+
+RF14 – Inserir Novo Agendamento
+
+O sistema deve permitir cadastrar novos agendamentos no banco de dados.
+
+RF15 – Editar Agendamento
+
+O sistema deve permitir alterar dados de agendamentos já cadastrados.
+
+RF16 – Excluir Agendamento
+
+O sistema deve permitir excluir agendamentos cadastrados.
+
+RF17 – Validar Dados do Cadastro
+
+O sistema deve validar os campos obrigatórios e consistência dos dados no cadastro e edição.
+
+RF18 – Exibir Alertas de Erro
+
+O sistema deve informar ao usuário casos de ausência ou preenchimento inválido de dados.
+
+RF19 – Retornar à Tela Principal
+
+O sistema deve permitir retornar da tela de cadastro para a interface principal.
+
+4. Gestão de Agendamentos
+RF20 – Listar Agendamentos Ordenados
+
+O sistema deve listar os agendamentos em ordem alfabética ou cronológica.
+
+RF21 – Aplicar Ordenação
+
+O sistema deve utilizar algoritmo de ordenação para organizar os registros.
+
+RF22 – Selecionar Agendamento para Movimentação
+
+O sistema deve permitir selecionar um agendamento existente.
+
+RF23 – Definir Tipo de Serviço
+
+O sistema deve permitir escolher o tipo de marcação entre:
+
+Faxina residencial
+Faxina comercial
+Alocação de profissionais
+RF24 – Informar Data do Agendamento
+
+O sistema deve permitir inserir a data desejada para o serviço.
+
+RF25 – Informar Horário do Agendamento
+
+O sistema deve permitir inserir o horário desejado para o serviço.
+
+RF26 – Verificar Conflito de Horários
+
+O sistema deve validar automaticamente conflitos de horário com outros serviços já cadastrados.
+
+RF27 – Verificar Disponibilidade de Profissional
+
+O sistema deve validar a disponibilidade do profissional selecionado.
+
+RF28 – Exibir Alertas de Conflito
+
+O sistema deve alertar o usuário em caso de conflito de horários ou indisponibilidade.
