@@ -13,45 +13,13 @@ CREATE TABLE `gestao_faxina`.`cliente` (
 CREATE TABLE `gestao_faxina`.`funcionario` (
   `idfuncionario` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(225) NULL,
-  `email` VARCHAR(225) NULL,
+  `email` VARCHAR(255) NULL,
   `telefone` BIGINT NULL,
-  `cidade` VARCHAR(225) NULL,
-  PRIMARY KEY (`idfuncionario`));
-
-CREATE TABLE `gestao_faxina`.`servico` (
-  `idservico` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(225) NOT NULL,
-  `valor` DECIMAL(10,2) NOT NULL,
-  `funcionario_idfuncionario` INT NOT NULL,
-
-  PRIMARY KEY (`idservico`),
-
-  CONSTRAINT `fk_servico_funcionario`
-    FOREIGN KEY (`funcionario_idfuncionario`)
-    REFERENCES `gestao_faxina`.`funcionario` (`idfuncionario`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-);
-
-CREATE TABLE `gestao_faxina`.`agendamento` (
-  `idagendamento` INT NOT NULL AUTO_INCREMENT,
-  `data_hora` DATETIME NOT NULL,
-  `status` ENUM('agendado', 'cancelado', 'concluido') NOT NULL,
-
-  `cliente_idcliente` INT NOT NULL,
-  `funcionario_idfuncionario` INT NOT NULL,
-
-  PRIMARY KEY (`idagendamento`),
-
-  CONSTRAINT `fk_agendamento_cliente`
-    FOREIGN KEY (`cliente_idcliente`)
-    REFERENCES `gestao_faxina`.`cliente` (`idcliente`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-
-  CONSTRAINT `fk_agendamento_funcionario`
-    FOREIGN KEY (`funcionario_idfuncionario`)
-    REFERENCES `gestao_faxina`.`funcionario` (`idfuncionario`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-);
+  `cidade` VARCHAR(255) NULL,
+  `agendamento_servico` DATETIME NULL,
+  `nome_servico` VARCHAR(255) NULL,
+  `valor_servico` DECIMAL(10,2) NULL,
+  `status` ENUM('Pendente', 'Cancelado', 'Confirmado', 'Concluído') NULL,
+  `ativo` INT VALUE 1,
+  PRIMARY KEY(`idfuncionario`)
+  ) 

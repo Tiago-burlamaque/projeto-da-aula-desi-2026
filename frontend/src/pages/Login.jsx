@@ -25,7 +25,7 @@ export default function Login() {
             );
 
             localStorage.setItem('token', res.data.token);
-
+            
             toast.success('Login realizado');
 
             navigate('/privateRoute/home')

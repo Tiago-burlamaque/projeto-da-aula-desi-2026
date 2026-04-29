@@ -31,7 +31,7 @@ export default function Registro() {
                 }
             );
 
-            console.log(res.data);
+
             toast.success('Usuário cadastrado com sucesso');
             navigate('/')
 

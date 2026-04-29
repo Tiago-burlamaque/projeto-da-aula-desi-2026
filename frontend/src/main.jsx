@@ -3,14 +3,21 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
+import Layout from './layout/layout'
 
 import Registro from './pages/Registro'
 import Login from './pages/Login'
 import Home from './pages/Home'
 
 import { AuthProvider } from './context/AuthContext'
+import NotFound from './pages/NotFound'
+import RegistrarAgendamento from './pages/RegistrarAgendamento'
 
 const router = createBrowserRouter([
+  {
+    path: "*",
+    element: <NotFound />
+  },
   // 🔓 PÚBLICAS
   {
     path: '/',
@@ -24,13 +31,12 @@ const router = createBrowserRouter([
   // 📱 LAYOUT PRIVADO (SEM PROTEÇÃO)
   {
     path: '/privateRoute',
-    element: <Layout />, // ✅ APENAS LAYOUT!
+    element: <Layout />,
     children: [
       { path: 'home', element: <Home /> },
-      { path: 'faxinas', element: <div>Faxinas</div> },
-      { path: 'calendario', element: <div>Calendário</div> },
-      { path: 'equipe', element: <div>Equipe</div> },
-      { path: 'configuracoes', element: <div>Configurações</div> }
+      { path: 'cadastrosAgendamentos', element: <RegistrarAgendamento /> },
+      { path: 'gestaoAgendamento', element: <div>Calendário</div> },
+    
     ]
   }
 ])

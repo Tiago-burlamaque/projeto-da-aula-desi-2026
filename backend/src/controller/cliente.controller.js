@@ -19,6 +19,22 @@ export const getUser = async (req, res) => {
     }
 };
 
+
+export const getUserNameById = async(userId) => {
+    try {
+        const [rows] = await db.query(
+            'SELECT nome FROM usuarios WHERE id = ? LIMIT 1', 
+            [userId]
+        );
+        
+        return rows[0]?.nome || null;
+    } catch (error) {
+        console.error('Erro ao buscar nome do usuário:', error);
+        return null;
+    }
+}
+
+
 export const createUser = async (req, res) => {
     try {
         const { nome, email, senha } = req.body;
@@ -72,7 +88,7 @@ export const loginUser = async (req, res) => {
         }
 
         const [rows] = await db.query(
-            'SELECT idcliente, nome, email, senha, ativo FROM cliente WHERE ativo = 1 LIMIT 1',
+            'SELECT idcliente, nome, email, senha, ativo FROM cliente WHERE ativo = 1 AND email = ? LIMIT 1',
             [email]
         );
 
@@ -112,7 +128,8 @@ export const loginUser = async (req, res) => {
 
         return res.status(200).json({
             message: 'Login realizado com sucesso.',
-            token
+            token,
+            usuario: usuario.nome
         });
 
     } catch (error) {

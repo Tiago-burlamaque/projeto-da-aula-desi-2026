@@ -1,6 +1,7 @@
 // src/context/AuthContext.jsx
 
 import { createContext, useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
 
 const AuthContext = createContext()
 
@@ -10,6 +11,7 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(
         localStorage.getItem('token') || null
     )
+   
 
     useEffect(() => {
         if (token) {
@@ -21,10 +23,11 @@ export const AuthProvider = ({ children }) => {
 
     const login = (newToken) => {
         setToken(newToken)
+
     }
 
     const logout = () => {
-        setToken(null)
+        setToken(null) 
     }
 
     return (
