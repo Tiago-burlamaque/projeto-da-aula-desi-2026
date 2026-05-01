@@ -15,7 +15,7 @@ function Navbar() {
 
               <nav className="bg-white/3 backdrop-blur-xl border-b border-white/10 sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                  <h1 className="text-2xl font-bold text-white">🏠 Gestão de Faxinas</h1>
+                  <Link to="/privateRoute/home" className="text-2xl font-bold text-white">🏠 Gestão de Faxinas</Link>
                   
                   {/* Info do Usuário */}
                   <div className="flex items-center gap-4">

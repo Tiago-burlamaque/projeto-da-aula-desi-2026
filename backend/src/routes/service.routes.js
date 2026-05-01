@@ -1,17 +1,19 @@
 import { Router } from "express";
-import { createService,
-        deleteService,
-        getAllServices,
-        getServiceById,
-        updateService
- } from "../controller/service.controller.js";
+import { 
+  createService,
+  deleteService,
+  getAllServices,
+  getServiceById,
+  updateService
+} from "../controller/service.controller.js";
 
-const serviceRouter = Router()
+const serviceRouter = Router();
 
-serviceRouter.post('/service', createService)
-serviceRouter.get('/service', getAllServices)
-serviceRouter.get('/service:id', getServiceById)
-serviceRouter.patch('/service:id', updateService)
-serviceRouter.delete('/service', deleteService)
+// 🔥 CORRIGIDO - Sem /service duplicado!
+serviceRouter.post('/', createService);           // POST /service
+serviceRouter.get('/', getAllServices);           // GET /service  
+serviceRouter.get('/:id', getServiceById);       // GET /service/2
+serviceRouter.put('/:id', updateService);         // PUT /service/2 ✅
+serviceRouter.delete('/:id', deleteService);      // DELETE /service/2 ✅
 
 export default serviceRouter;

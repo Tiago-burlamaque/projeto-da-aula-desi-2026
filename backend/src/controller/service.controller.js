@@ -98,56 +98,99 @@ export const getServiceById = async (req, res) => {
   }
 };
 
-// Atualizar serviço
+// controller/service.controller.js
+// controller/service.controller.js - DEBUG MÁXIMO!
 export const updateService = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { nome, email, telefone, cidade, agendamento_servico, nome_servico, valor_servico } = req.body;
-
-        const [result] = await db.query(
-            `UPDATE funcionario 
-             SET nome = ?, email = ?, telefone = ?, cidade = ?, 
-                 agendamento_servico = ?, nome_servico = ?, valor_servico = ?
-             WHERE id = ? AND ativo = 1`,
-            [nome, email, telefone, cidade, agendamento_servico, nome_servico, valor_servico, id]
-        );
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "Serviço não encontrado"
-            });
-        }
-
-        res.json({
-            success: true,
-            message: "Serviço atualizado com sucesso!"
-        });
-
-    } catch (error) {
-        console.error("Erro ao atualizar serviço:", error);
-        res.status(500).json({
-            success: false,
-            message: "Erro ao atualizar serviço"
-        });
+  console.log('🚀 === UPDATE INICIADO ===');
+  console.log('📦 REQUEST BODY:', JSON.stringify(req.body, null, 2));
+  console.log('🔑 REQUEST PARAMS:', req.params);
+  
+  try {
+    const { id } = req.params;
+    
+    // 🔥 TESTE 1: Verifica se ID existe
+    const [exists] = await db.query('SELECT * FROM funcionario WHERE idfuncionario = ?', [id]);
+    console.log('🔍 REGISTRO ENCONTRADO:', exists.length > 0 ? 'SIM' : 'NÃO');
+    
+    if (exists.length === 0) {
+      return res.status(404).json({ success: false, message: `ID ${id} não existe` });
     }
+
+    const {
+      nome, email, telefone, cidade,
+      agendamento_servico, nome_servico,
+      valor_servico, status
+    } = req.body;
+
+    console.log('📊 VALORES PARA UPDATE:', {
+      nome, email, telefone, cidade,
+      agendamento_servico, nome_servico,
+      valor_servico, status
+    });
+
+    // 🔥 TESTE 2: UPDATE SIMPLES (só nome e status primeiro)
+    const [result] = await db.query(
+      `UPDATE funcionario 
+       SET nome = ?, status = ?
+       WHERE idfuncionario = ?`,
+      [nome || exists[0].nome, status || exists[0].status, id]
+    );
+
+    console.log('✅ UPDATE RESULT:', result);
+
+    res.json({ 
+      success: true, 
+      message: 'Atualizado com sucesso!',
+      affectedRows: result.affectedRows 
+    });
+
+  } catch (error) {
+    console.error('💥 ERRO COMPLETO:');
+    console.error('Mensagem:', error.message);
+    console.error('SQL State:', error.sqlState);
+    console.error('SQL Code:', error.sqlCode);
+    console.error('Stack:', error.stack);
+    
+    res.status(500).json({ 
+      success: false, 
+      message: `Erro: ${error.message}`,
+      debug: process.env.NODE_ENV === 'development' ? error.sqlMessage : undefined
+    });
+  }
 };
 
 // Deletar serviço (soft delete)
 export const deleteService = async (req, res) => {
   try {
     const { id } = req.params;
+    
+    console.log(`🗑️ Deletando funcionario ID: ${id}`);
+    
+    // ✅ TABELA E COLUNA CORRETAS!
     const [result] = await db.query(
-      `DELETE FROM funcionario WHERE idfuncionario = ?`, // ✅ DELETE real
+      `DELETE FROM funcionario WHERE idfuncionario = ?`,
       [id]
     );
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ success: false, message: "Não encontrado" });
+      return res.status(404).json({ 
+        success: false, 
+        message: "Funcionário/Agendamento não encontrado" 
+      });
     }
 
-    res.json({ success: true, message: "Agendamento removido!" });
+    res.json({ 
+      success: true, 
+      message: `Agendamento removido com sucesso!`,
+      deletedId: id,
+      affectedRows: result.affectedRows 
+    });
+    
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    console.error('❌ Erro DELETE:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: error.message 
+    });
   }
 };

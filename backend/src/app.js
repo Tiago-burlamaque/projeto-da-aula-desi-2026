@@ -9,6 +9,5 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/cliente', clienteRouter)
-app.use(serviceRouter)
-
+app.use('/service', serviceRouter);  // Monta em /service
 export default app;
