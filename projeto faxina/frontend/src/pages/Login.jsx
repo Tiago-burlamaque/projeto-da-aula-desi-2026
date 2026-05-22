@@ -20,7 +20,7 @@ export default function Login() {
 
             // ✅ Salva token
             localStorage.setItem('token', res.data.token);
-            
+
             // ✅ BONUS: Salva dados do usuário também (se backend retornar)
             if (res.data.user) {
                 localStorage.setItem('user', JSON.stringify(res.data.user));
